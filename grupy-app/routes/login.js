@@ -1,20 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('login', { title: 'Login' });
-});
+/* Controllers  */
+var ctrLogin = require("../controllers/user");
 
-router.post('/process-login', function(req, res, next) {
-  //tukaj pokliči api in daj v spremenljivko valid rezultat
-  console.log(req.body.username);
-  let valid = true;
-  if(valid) {
-    res.redirect("/");
-  } else {
-    res.redirect("/login");
-  }
-});
+router.get('/', ctrLogin.renderLoginPage);
+router.post('/process-login', ctrLogin.login);
 
 module.exports = router;
