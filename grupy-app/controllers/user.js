@@ -2,7 +2,6 @@ let request = require('request');
 
 module.exports.login = function(req, res) {
     let forwardedJson = {};
-    let email = 
 
     request({
         headers: {
@@ -18,7 +17,8 @@ module.exports.login = function(req, res) {
             if(content.ID_USER == -1) {
                 res.redirect("/login");
             } else {
-                res.redirect("/user-profile")
+                res.redirect("/user-profile");
+                req.session.ID_USER = content.ID_USER;
             }
         } else if (answer.statusCode === 400) {
             res.redirect('/login?error=400');
@@ -29,56 +29,51 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.renderLoginPage = function(req, res) {
-res.render('login', { title: 'Login' });
+    res.render('login', { title: 'Login' });
 };
-  
-/*var path = '/api/challenges/post';
-var passedJson = {
-    title: req.body.title,
-    user: {
-    username: "challenger",
-    id: "5c0d0f5e6b60e1d39eabfbf1"
-    },
-    content: req.body.content,
-    testdata: [
-    {
-        "in": req.body.in1,
-        out: req.body.out1,
-        expl: req.body.expl1
-    },
-    {
-        "in": req.body.in2,
-        out: req.body.out2,
-        expl: req.body.expl2
-    },
-    {
-        "in": req.body.in3,
-        out: req.body.out3,
-        expl: req.body.expl3
-    } 
-    ],
-    tag: req.body.tag,
-    comments : []
+
+module.exports.renderRegisterPage = function(req, res) {
+    res.render('register', { title: 'Register' });
 };
-var queryParams = {
-    url: apiParams.server + path,
-    method: 'POST',
-    json: passedJson
-};
-if (!passedJson.title || !passedJson.testdata) {
-    res.redirect('/challenges/post/?error=value');
-} else {
-    request(
-    queryParams,
-    function(error, answer, content) {
-        if (answer.statusCode === 201) {
-        res.redirect('/challenges/');
-        } else if (answer.statusCode === 400 && 
-        content.name && content.name === "ValidationError") {
-            res.redirect('/challenges/post/?error=value');
+
+module.exports.register = function(req, res) {
+    var newDate = new Date();
+
+    let forwardedJson = {
+        email: req.body.username,
+        email_verified: 0,
+        introduction: "This is how I would describe myself...",
+        name: req.body.name,
+        password: req.body.password,
+        phone: req.body.phone,
+        phone_verified: 0,
+        profile_pic: "profile.png",
+        register_date: null,
+        sex: req.body.sex,
+        surname: req.body.surname
+    };
+
+    request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        uri: 'http://grupyservice.azurewebsites.net/UserService.svc/',
+        method: 'POST',
+        json: forwardedJson
+    }, function (error, answer, content) {
+        if (answer.statusCode === 201 || answer.statusCode === 200) {
+            console.log(content.ID_USER);
+            if(content.ID_USER == -1) {
+                res.redirect("/register");
+            } else {
+                res.redirect("/user-profile")
+                req.session.ID_USER = content.ID_USER;
+            }
+        } else if (answer.statusCode === 400) {
+            res.redirect('/register?error=400');
         } else {
-        showError(req, res, answer.statusCode);
+            res.redirect('/register?error='+answer.statusCode);
+            console.log(content);
         }
-    }
-    );
-}*/
+    });
+};
