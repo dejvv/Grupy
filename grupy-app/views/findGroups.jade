@@ -2,12 +2,13 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
-
+  button(onclick=`addGroup()`) Add group
   if content && content.length > 0
     each group in content
-        div.groupHolder
-            p= group.created_by_user_id
+        div.groupHolder(style={ "border" : "1px solid black"})
+            p id_group: #{group.ID_GROUP}
+            p created_by_user_id: #{group.created_by_user_id}
             p= group.name
             p= group.created_by_user.email
+
     
