@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  if content && content.length > 0
+    each group in content
+        div.groupHolder
+            p= group.created_by_user_id
+            p= group.name
+            p= group.created_by_user.email
+    
