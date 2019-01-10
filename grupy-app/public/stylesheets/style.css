@@ -6,3 +6,28 @@ body {
 a {
   color: #00B7FF;
 }
+
+#login-panel{
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:50px;
+  padding-right:50px;
+  text-align:center;
+}
+
+#logo{
+  height:150px;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+}
+
+body{
+  background-color: #fafafa;
+}
+
+.errorMessage {
+  color:#ff4449;
+}

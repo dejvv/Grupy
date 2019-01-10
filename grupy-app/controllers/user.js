@@ -15,10 +15,11 @@ module.exports.login = function(req, res) {
         if (answer.statusCode === 201 || answer.statusCode === 200) {
             console.log(content.ID_USER);
             if(content.ID_USER == -1) {
+                req.session.error = "Username or password are incorrect.";
                 res.redirect("/login");
             } else {
-                res.redirect("/user-profile");
                 req.session.ID_USER = content.ID_USER;
+                res.redirect("/user-profile");
             }
         } else if (answer.statusCode === 400) {
             res.redirect('/login?error=400');
@@ -29,15 +30,24 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.renderLoginPage = function(req, res) {
-    res.render('login', { title: 'Login' });
+    let _error = req.session.error;
+    req.session.error = null;
+    res.render('login', { title: 'Login', error: _error });
 };
 
 module.exports.renderRegisterPage = function(req, res) {
-    res.render('register', { title: 'Register' });
+    let _error = req.session.error;
+    req.session.error = null;
+    res.render('register', { title: 'Register', error: _error });
 };
 
 module.exports.register = function(req, res) {
     var newDate = new Date();
+
+    if(!req.body.username || !req.body.name || !req.body.password || !req.body.phone || !req.body.sex || !req.body.surname) {
+        req.session.error = "Please enter all the needed information.";
+        res.redirect("/register");
+    }
 
     let forwardedJson = {
         email: req.body.username,
@@ -64,6 +74,7 @@ module.exports.register = function(req, res) {
         if (answer.statusCode === 201 || answer.statusCode === 200) {
             console.log(content.ID_USER);
             if(content.ID_USER == -1) {
+                req.session.error = "Not all data you entered was correct, please try again.";
                 res.redirect("/register");
             } else {
                 res.redirect("/user-profile")
