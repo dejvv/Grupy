@@ -19,7 +19,7 @@ module.exports.login = function(req, res) {
                 res.redirect("/login");
             } else {
                 req.session.ID_USER = content.ID_USER;
-                res.redirect("/user-profile");
+                res.redirect("/user-profile/"+content.ID_USER);
             }
         } else if (answer.statusCode === 400) {
             res.redirect('/login?error=400');
@@ -73,7 +73,6 @@ module.exports.register = function(req, res) {
         json: forwardedJson
     }, function (error, answer, content) {
         if (answer.statusCode === 201 || answer.statusCode === 200) {
-            console.log(content);
             if(content.status == -1) {
                 req.session.error = "Not all data you entered was correct, please try again.";
                 res.redirect("/register");
@@ -81,8 +80,8 @@ module.exports.register = function(req, res) {
                 req.session.error = "User with this email already exists. Please pick another email.";
                 res.redirect("/register");
             } else {
-                req.session.ID_USER = content.ID_USER;
-                res.redirect("/user-profile");
+                req.session.ID_USER = content.status;
+                res.redirect("/user-profile/"+content.status);
             }
         } else if (answer.statusCode === 400) {
             res.redirect('/register?error=400');
@@ -93,33 +92,101 @@ module.exports.register = function(req, res) {
 };
 
 module.exports.renderUserPage = function(req, res) {
-    let USER_ID = req.params.id;
+    let _user = req.params.id;
     let forwardedJson = {};
-
-
-
-    console.log("Current user: "+USER_ID);
-    console.log("loggedin user: "+req.session.USER_ID);
-
-
+    let _error = req.session.error;
 
     request({
         headers: {
             'Content-Type': 'application/json',
         },
-        uri: 'http://grupyservice.azurewebsites.net/UserService.svc/' + USER_ID,
+        uri: 'http://grupyservice.azurewebsites.net/UserService.svc/' + _user,
         method: 'GET',
         json: forwardedJson
     }, function (error, answer, content) {
         if (answer.statusCode === 201 || answer.statusCode === 200) {
-            console.log("pridobljeno za userja "+content.ID_USER);
-            if(content.ID_USER == -1) {
-                req.session.error = "User does not exist.";
-                res.redirect("/login");
+            if(content.ID_USER == 0) {
+                res.redirect("/user-profile/"+req.session.ID_USER);
             } else {
-                console.log(content);
-                res.render('user-profile', { title: 'Grupy - My profile'});
+                if(_user == req.session.ID_USER) {
+                    res.render('user-profile', { 
+                        title: 'Grupy - My profile', 
+                        name: content.name, 
+                        surname: content.surname,
+                        introduction: content.introduction,
+                        sex: content.sex,
+                        me: 1,
+                        error: _error
+                    });
+                } else {
+                    res.render('user-profile', { 
+                        title: 'Grupy - User profile', 
+                        name: content.name, 
+                        surname: content.surname,
+                        introduction: content.introduction,
+                        sex: content.sex,
+                        me: 0
+                    });
+                }
             }
+        } else if (answer.statusCode === 400) {
+            res.redirect('/user-profile?error=400');
+        } else {
+            res.redirect('/user-profile?error='+answer.statusCode);
+        }
+    });
+};
+
+module.exports.updateInfo = function(req, res) {
+    let _desc = req.body.description;
+    let forwardedJson = {}
+
+    request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        uri: 'http://grupyservice.azurewebsites.net/UserService.svc/' + req.session.ID_USER,
+        method: 'GET',
+        json: forwardedJson
+    }, function (error, answer, content) {
+        if (answer.statusCode === 201 || answer.statusCode === 200) {
+            let forwardedJson = {
+                ID_USER: req.session.ID_USER,
+                email: content.email,
+                email_verified: 0,
+                introduction: _desc,
+                name: content.name,
+                password: content.password,
+                phone: content.phone,
+                phone_verified: 0,
+                profile_pic: "profile.png",
+                register_date: null,
+                sex: content.sex,
+                surname: content.surname,
+            };
+
+            request({
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                uri: 'http://grupyservice.azurewebsites.net/UserService.svc/',
+                method: 'PUT',
+                json: forwardedJson
+            }, function (error, answer, content) {
+                if (answer.statusCode === 201 || answer.statusCode === 200) {
+                    if(content.status == 1) {
+                        res.redirect("/user-profile/");
+                    } else {
+                        req.session.error = "Something went wrong. Please try again."
+                        res.redirect("/user-profile/");
+                    }
+                } else if (answer.statusCode === 400) {
+                    res.redirect('/user-profile?error=400');
+                } else {
+                    res.redirect('/user-profile?error='+answer.statusCode);
+                }
+            });
+
         } else if (answer.statusCode === 400) {
             res.redirect('/user-profile?error=400');
         } else {
