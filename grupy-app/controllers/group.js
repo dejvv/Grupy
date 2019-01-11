@@ -9,7 +9,7 @@ module.exports.getGroups= function(req, res, next) {
         headers: {
             'Content-Type': 'application/json'
         },
-        uri: "http://grupyservice.azurewebsites.net/GroupService.svc/",
+        uri: "http://grupyservice.azurewebsites.net/GroupService.svc/project/1",
         json: forwardedJson,
         method: 'GET'
     }, function (error, answer, content) {
@@ -52,16 +52,16 @@ module.exports.processGroups= async function(req, res, next) {
     await Promise.all(content.map(async (group) => {
         group.created_by_user = await user.getUserWithId(group.created_by_user_id);
         group.hosted_by_user = await user.getUserWithId(group.hosted_by_user_id);
-        console.log(group.created_by_user.email);
+        console.log(group.ID_GROUP, group.name);
         })).then(() => {
-        res.render('findGroups', { title: 'Find group finished executing ' + (content.length ? "there is something" : "there is nothing"), content: content });
+        res.render('findGroups', { title: 'List of groups', content: content });
         });
     
 };
 
 // doda skupino
 module.exports.addGroup = function(req, res, next) {
-    return new Promise( (resolve, reject )  => {
+    // return new Promise( (resolve, reject )  => {
         
             let forwardedJson = {
                 created_by_user_id: req.body.created_by_user_id,
@@ -72,7 +72,8 @@ module.exports.addGroup = function(req, res, next) {
                 number_of_people: req.body.group_num_of_people,
                 photos: "photos",
                 place_to_stay: req.body.group_place_to_stay,
-                place_to_visit: req.body.group_place_to_visit
+                place_to_visit: req.body.group_place_to_visit,
+                project: 1
             };
 
             request({
@@ -83,12 +84,16 @@ module.exports.addGroup = function(req, res, next) {
                 method: 'POST',
                 json: forwardedJson
             }, function (error, answer, content) {
-                console.log(content);
+                console.log("[addGroup]", content);
                 if (answer.statusCode === 201 || answer.statusCode === 200) 
-                    content.ID_GROUP > 0 ? resolve(content) : reject("error") ;
-                reject("error")
+                    if (content.ID_GROUP > 0)
+                     return res.send({content: content})
+                    else 
+                     return res.send({content: "error"}) ;
+                return res.send({content: "error"});
             });
-    }).catch(function(error) {
-        console.log(error);
-    });
+    // }).catch(function(error) {
+    //     console.log(error);
+    //     res.send(reject("error"));
+    // });
 };

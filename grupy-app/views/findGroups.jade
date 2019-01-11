@@ -1,14 +1,95 @@
 extends layout
 
 block content
-  h1= title
-  button(onclick=`addGroup()`) Add group
-  if content && content.length > 0
-    each group in content
-        div.groupHolder(style={ "border" : "1px solid black"})
-            p id_group: #{group.ID_GROUP}
-            p created_by_user_id: #{group.created_by_user_id}
-            p= group.name
-            p= group.created_by_user.email
+  button(onclick=`addGroup()`).button.is-primary.open-modal#send-request Add group
+  section
+    .container
+      //- if content && content.length > 0
+      //-     table.table.is-hoverable.is-striped.is-fullwidth
+      //-       thead
+      //-         tr
+      //-           th Destination picture
+      //-           th Destination name
+      //-           th Created by
+      //-       each group in content
+      //-         tr
+      //-           td
+      //-             figure.image.is-128x128
+      //-               img(src='https://images.unsplash.com/photo-1475778057357-d35f37fa89dd?dpr=1&auto=compress,format&fit=crop&w=1920&h=&q=80&cs=tinysrgb&crop=', alt='Image')  
+      //-           td #{group.place_to_visit}
+      //-           td
+      //-             figure.image.is-64x64
+      //-               img(src='https://i.imgsafe.org/a4/a4bb9acc5e.jpeg', alt='Image')      
+
+
+      if content && content.length > 0
+        .row.columns.is-multiline
+          each group in content
+            .column.is-one-third
+              .card
+                header.card-header
+                  p.card-header-title #{group.place_to_visit}
+                .card-image
+                  figure.image
+                    if group.group_photo == "default_photo"
+                      img(src='https://images.unsplash.com/photo-1475778057357-d35f37fa89dd?dpr=1&auto=compress,format&fit=crop&w=1920&h=&q=80&cs=tinysrgb&crop=', alt='Image') 
+                    else
+                      img(src=group.group_photo, alt='Image')                           
+                .card-content
+                  .media
+                    .media-left
+                      figure.image.is-64x64
+                        img(src='https://i.imgsafe.org/a4/a4bb9acc5e.jpeg', alt='Image')
+                    .media-content
+                      .content.is-small
+                          ul
+                            li Number of people: #{group.number_of_people}
+                  .content.is-small
+                    p #{group.description}
+                .card-footer
+                  a.card-footer-item(href="#") Join 
+
+          
+
+  .modal#get-data-modal
+    .modal-background
+    .modal-card
+      header.modal-card-head
+        p.modal-card-title Create new group
+        button(aria-label="close").delete
+      section.modal-card-body
+        form#create-group-form
+          .field
+            label.label Name of your group
+            .control
+              input.input(type="text" placeholder="name" name="name")
+
+          .field
+            label.label Type something about your group
+            .control
+              //- input.input(type="text" placeholder="description" name="description")
+              textarea.textarea(placeholder="Write something about your group", form="create-group-form" name="description")
+
+          .field
+            label.label Place to visit
+            .control
+              input.input(type="text" placeholder="destination" name="place_to_visit")
+            p.help You can change it later
+
+          .field
+            label.label Number of members you want to join you
+            .control
+              input.input(type="number" placeholder="number of members" name="number_of_people")
+            p.help You can change it later
+
+          .field
+            label.label Group cover photo
+            .control
+              input.input(type="text" placeholder="https://shrani.si/ab2c31" name="link_photo")
+            p.help We do not support storing photos on our service, so just put a link to your photo
+      footer.modal-card-foot
+        button.button.is-primary.custom-modal-close#create-group-button Create new group
+        button.button.custom-modal-close Cancel
+   
 
     

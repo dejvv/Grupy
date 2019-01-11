@@ -1,0 +1,400 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    |     
+    title bulma cards
+    |     
+    link(rel='shortcut icon', href='../images/fav_icon.png', type='image/x-icon')
+    |     
+    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css')
+    |     
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet', integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN', crossorigin='anonymous')
+    |     
+    link(rel='stylesheet', href='../css/cards.css')
+  body
+    // START NAV
+    nav.navbar
+      .container
+        .navbar-brand
+          a.navbar-item(href='../')
+            img(src='../images/bulma.png', alt='Logo')
+          |                         
+          span.navbar-burger.burger(data-target='navbarMenu')
+            span
+            |                         
+            span
+            |                         
+            span
+        |                     
+        #navbarMenu.navbar-menu
+          .navbar-end
+            a.navbar-item.is-active
+              | Home
+            |                             
+            a.navbar-item
+              | Examples
+            |                             
+            a.navbar-item
+              | Features
+            |                             
+            a.navbar-item
+              | Team
+            |                             
+            a.navbar-item
+              | Archives
+            |                             
+            a.navbar-item
+              | Help
+            |                             
+            .navbar-item.has-dropdown.is-hoverable
+              a.navbar-link
+                | Account
+              |                                 
+              .navbar-dropdown
+                a.navbar-item
+                  | Dashboard
+                |                                     
+                a.navbar-item
+                  | Profile
+                |                                     
+                a.navbar-item
+                  | Settings
+                |                                     
+                hr.navbar-divider
+                |                                     
+                .navbar-item
+                  | Logout
+    // END NAV
+    .container
+      #flow
+        span.flow-1
+        |             
+        span.flow-2
+        |             
+        span.flow-3
+      |         
+      .section
+        .box
+          .field.has-addons
+            .control.is-expanded
+              input.input.has-text-centered(type='search', placeholder='» » » » » » find me « « « « « «')
+            |                     
+            .control
+              a.button.is-info Search
+        // Developers
+        .row.columns
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://images.unsplash.com/photo-1475778057357-d35f37fa89dd?dpr=1&auto=compress,format&fit=crop&w=1920&h=&q=80&cs=tinysrgb&crop=', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='https://i.imgsafe.org/a4/a4bb9acc5e.jpeg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding Okinami
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Lead Developer
+                |                             
+                .content
+                  | The Beast stumbled in the dark for it could no longer see the path. It started to fracture and weaken, trying to reshape itself into the form of metal. Even the witches would no longer lay eyes upon it, for it had become hideous and twisted.
+                  .background-icon
+                    span.icon-twitter
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com/uzDLtlPY8kQ', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='https://cdn.discordapp.com/avatars/244932903530659841/0c924a19fcf1b5c59bc9dc1b58b61bb0.jpg?size=1024', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding McSocks
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Developer
+                |                             
+                .content
+                  | The soul of the Beast seemed lost forever. Then, by the full moon&apos;s light, a child was born; child with the unbridled soul of the Beast that would make all others pale in comparison.
+                  .background-icon
+                    span.icon-facebook
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com/pe_R74hldW4', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='https://i.imgsafe.org/a5/a5e978ce20.jpeg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding The Conceptionist
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Developer
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+                  .background-icon
+                    span.icon-barcode
+        // End Developers
+        // Staff
+        .row.columns.is-multiline
+          .column.is-one-third
+            .card.large.round
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com/Jy6luiLBsrk', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample5.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding Atsui
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com//i1CR3CY2hE4', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='http://www.radfaces.com/images/avatars/richard-wang.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding Sphirou Sapphirou
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com/b6VzeoRZiS0', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='http://www.radfaces.com/images/avatars/jeffrey-douglas.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding PlayTheFallen
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Sometimes I dip my nose into my cereals. I do it coz it&apos;s funny.
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://i.imgsafe.org/a4/a4bda71ae4.jpeg', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='http://www.radfaces.com/images/avatars/scrappy-doo.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding FelixCAT
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com/ogYIzsNGu3Y', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='http://www.radfaces.com/images/avatars/scrappy-doo.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding ScoobyDOG
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com/KgjcndVr7tU', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='http://www.radfaces.com/images/avatars/scrappy-doo.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding Scrappy Doo
+                    |                                         
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                         
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://i.imgsafe.org/a5/a5e978ce20.jpeg', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='http://www.radfaces.com/images/avatars/alex-mack.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4 Prototyp3
+                    |                                     
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com/Gnxquq4oYQc', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='http://www.radfaces.com/images/avatars/alex-mack.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4.no-padding Alex Mack
+                    |                                     
+                    p
+                      span.title.is-6
+                        a(href='http://twitter.com/#') @twitterid
+                    |                                     
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+          |                 
+          .column.is-one-third
+            .card.large
+              .card-image
+                figure.image
+                  img(src='https://source.unsplash.com/qbtyUQtqJ8k', alt='Image')
+              |                         
+              .card-content
+                .media
+                  .media-left
+                    figure.image.is-96x96
+                      img(src='http://www.radfaces.com/images/avatars/alex-mack.jpg', alt='Image')
+                  |                                 
+                  .media-content
+                    p.title.is-4 Alex Mack
+                    |                                     
+                    p.subtitle.is-6 Moderator
+                |                             
+                .content
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
+        // End Staff
+    |     
+    footer.footer
+      .container
+        .content.has-text-centered
+          .soc
+            a(href='#')
+              i.fa.fa-github-alt.fa-2x(aria-hidden='true')
+            |                         
+            a(href='#')
+              i.fa.fa-youtube.fa-2x(aria-hidden='true')
+            |                         
+            a(href='#')
+              i.fa.fa-facebook.fa-2x(aria-hidden='true')
+            |                         
+            a(href='#')
+              i.fa.fa-twitter.fa-2x(aria-hidden='true')
+          |                     
+          p
+            strong Bulma
+            |  by 
+            a(href='http://jgthms.com') Jeremy Thomas
+            | .
+            |                         The source code is licensed 
+            a(href='http://opensource.org/licenses/mit-license.php') MIT
+            | . 
+            br
