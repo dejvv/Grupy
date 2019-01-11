@@ -1,5 +1,6 @@
 let request = require('request');
 let user = require('./user');
+let chat = require('./chat');
 
 // pridobi vse skupine
 module.exports.getGroups= function(req, res, next) {
@@ -59,8 +60,8 @@ module.exports.processGroups= async function(req, res, next) {
     
 };
 
-// doda skupino
-module.exports.addGroup = function(req, res, next) {
+// doda skupino, ko je dodajanje skupine uspešno, še doda chat za to skupino
+module.exports.addGroup = async function(req, res, next) {
     // return new Promise( (resolve, reject )  => {
         
             let forwardedJson = {
@@ -83,11 +84,17 @@ module.exports.addGroup = function(req, res, next) {
                 uri: 'http://grupyservice.azurewebsites.net/GroupService.svc/',
                 method: 'POST',
                 json: forwardedJson
-            }, function (error, answer, content) {
-                console.log("[addGroup]", content);
+            }, async function (error, answer, content) {
+                // console.log("[addGroup]", content);
                 if (answer.statusCode === 201 || answer.statusCode === 200) 
-                    if (content.ID_GROUP > 0)
-                     return res.send({content: content})
+                    if (content.ID_GROUP > 0){
+                        let id_chat = await chat.addChat();
+                        let group_add_chat = await chat.addChatToGroup({id_chat: id_chat.ID_CHAT, id_group:content.ID_GROUP})();
+                        
+                        // console.log("[addGroup] id of chat for you:", id_chat);
+                        // console.log("[addGroup] groupAddChat response", group_add_chat);
+                        return res.send({content: content})
+                    }
                     else 
                      return res.send({content: "error"}) ;
                 return res.send({content: "error"});
@@ -96,4 +103,5 @@ module.exports.addGroup = function(req, res, next) {
     //     console.log(error);
     //     res.send(reject("error"));
     // });
+    
 };
