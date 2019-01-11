@@ -21,6 +21,35 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+/**  
+ * Import socket.io and attach it to our server
+ */
+let allClients = [];
+const io = require("socket.io")(server);
+io.on('connection', (socket) => {
+  allClients.push(socket);
+  console.log("New user connected!");
+
+  // default username
+  socket.username = "Anonymous";
+  // if user wants to change username
+  socket.on('change_username', (data) => {
+    console.log("[sockets] User", socket.username, "changed username to:", data.username);
+    socket.username = data.username
+  });
+  // when user disconnects
+  socket.on('disconnect', function() {
+    console.log("[sockets] User", socket.username, "disconnected");
+    let i = allClients.indexOf(socket);
+    allClients.splice(i, 1);
+  });
+  // listen for messages and then broadcast it to everybody (sockets)
+  socket.on('new_message', (data) => {
+    io.sockets.emit('incomming_messages', {message: data.message, username: socket.username});
+  });
+
+});
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -88,3 +117,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
