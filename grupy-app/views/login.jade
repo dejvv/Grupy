@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  form(action="/login/process-login" method="post")
+    div.col-sm-4
+    div.col-sm-3
+      div.panel.panel-default#login-panel
+        img#logo(src="/images/logo.png")
+        br
+        br
+        input.form-control(type="text", placeholder="Username", name="username")
+        br
+        input.form-control(type="password", placeholder="Password", name="password")
+        br
+        input.form-control(type="submit", value="Log in")
+        if error
+          br
+          span.error-message=error
+      div.panel.panel-default#login-panel
+        span Don't have an account?&nbsp 
+          a(href="/register") Sign up
+    div.col-sm-5

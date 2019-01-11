@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  form(action="/register/process-register" method="post")
+    div.col-sm-4
+    div.col-sm-3
+      div.panel.panel-default#login-panel
+        img#logo(src="/images/logo.png")
+        br
+        br
+        input.form-control(type="text", placeholder="Username", name="username")
+        br
+        input.form-control(type="password", placeholder="Password", name="password")
+        br
+        input.form-control(type="text", placeholder="Name", name="name")
+        br
+        input.form-control(type="text", placeholder="Surname", name="surname")
+        br
+        input(type="radio", value="m", name="sex")
+        span &nbspMale&nbsp&nbsp&nbsp
+        input(type="radio", value="f", name="sex")
+        span &nbspFemale
+        br
+        br
+        input.form-control(type="text", placeholder="Phone", name="phone")
+        br
+        input.form-control(type="submit" value="Register")
+        if error
+          br
+          span.error-message=error
+      div.panel.panel-default#login-panel
+        span Have an account?&nbsp
+          a(href="/login") Log in
+    div.col-sm-5
+    
+    
