@@ -2,6 +2,12 @@ div#change_username, section#input_zone {
     border: 5px outset #8258FA;
 }
 
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #fafafa !important;
+}
+
 div#change_username {
     height: 3%;
     display: inline-block;
@@ -61,4 +67,46 @@ p.message {
 
 .message:nth-child(odd) {
     background-color: #81BEF7;
+
+#login-panel{
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-left:50px;
+  padding-right:50px;
+  text-align:center;
+}
+
+#profile-panel{
+  padding-top:75px;
+  padding-bottom:75px;
+  padding-left:60px;
+  padding-right:60px;
+}
+
+#logo{
+  height:150px;
+}
+
+.error-message {
+  color:#ff4449;
+}
+
+.profile-user-picture{
+  width:100%;
+}
+
+#profile-user-desc{
+  padding: 10px;
+}
+
+#about-me{
+  resize: none;
+}
+
+.tip {
+  color: #757575;
+}
+
+.bigger-text{
+  font-size: 1.5em;
 }
