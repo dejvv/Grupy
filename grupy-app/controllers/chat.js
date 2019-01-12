@@ -82,3 +82,11 @@ module.exports.getChatsForGroups = function(id_group) {
         reject("error");
     });       
 };
+
+module.exports.createChatFor = function(req, res, next) {
+    // console.log("[createChatFor] user session", req.session.ID_USER);
+    if(!req.session.ID_USER)
+        return res.redirect('../login');
+    res.render('chat', { title: 'Chat', chat_name: 'Cool chat' });
+    
+}
