@@ -39,7 +39,7 @@ module.exports.login = function(req, res) {
                 res.redirect("/login");
             } else {
                 req.session.ID_USER = content.ID_USER;
-                res.redirect("/user-profile/"+content.ID_USER);
+                res.redirect("/groups");
             }
         } else if (answer.statusCode === 400) {
             res.redirect('/login?error=400');
@@ -101,7 +101,7 @@ module.exports.register = function(req, res) {
                 res.redirect("/register");
             } else {
                 req.session.ID_USER = content.status;
-                res.redirect("/user-profile/"+content.status);
+                res.redirect("/groups");
             }
         } else if (answer.statusCode === 400) {
             res.redirect('/register?error=400');
