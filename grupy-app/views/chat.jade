@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    //- #content
+    //-     div
+    //-         span#status Connecting...     
+    //-         input#input(type='text', disabled='disabled')
+
+    header
+      h1 Super Chat  
+    section
+      #change_username
+        input#username(type='text')
+        button#send_username(type='button') Change username
+    section#chatroom
+      section#feedback
+    section#input_zone
+      input#message.vertical-align(type='text')  
+      button#send_message.vertical-align(type='button') Send
+
