@@ -117,3 +117,5 @@ module.exports.getNChatMessages = function(chatId, quantity) {
         reject(null);
     });
 }
+};
+
