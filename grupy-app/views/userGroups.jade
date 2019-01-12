@@ -8,3 +8,6 @@ block content
             - let id = group.ID_GROUP
             li 
                 a(href= id) #{group.name}
+                |  (
+                a(href='list/'+ id + '/chats') chats
+                | )

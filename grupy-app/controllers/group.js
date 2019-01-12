@@ -205,3 +205,16 @@ module.exports.listUserGroups = function(req, res, next) {
     //console.log("[list user groups]",user_groups);
     res.render('userGroups', { title: 'List of groups you are joined in', groups: user_groups });
 }
+
+// vrne vse chata, ki pripadajo skupini
+module.exports.listGroupChats = async function(req, res, next) {
+    if (!req.session.ID_USER)
+        return res.redirect("../../../login");
+    let id_group = req.params.id_group;
+    //console.log("[listGrupChats] for:", id_group);
+
+    let chats = await chat.getChatsForGroups(id_group);
+    console.log(chats);
+    
+    res.render('groupChats', { title: 'List of chats for the group', chats: chats });
+}

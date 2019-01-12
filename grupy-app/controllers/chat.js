@@ -72,7 +72,7 @@ module.exports.getChatsForGroups = function(id_group) {
             method: 'GET',
             json: forwardedJson
         }, function (error, answer, content) {
-            console.log("[getChatsForGroups] content:", content);
+            //console.log("[getChatsForGroups] content:", content);
             if (answer.statusCode === 201 || answer.statusCode === 200)
                 content.ID_USER === 0 ? reject("error") : resolve(content);
             reject("error");

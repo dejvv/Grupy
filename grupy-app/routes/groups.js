@@ -14,5 +14,7 @@ router.get('/join/:id_group', controllerGroup.userIsAddedToGroup);
 // pokaži vse skupine v katere je uporabnik joinan
 router.get('/list', controllerGroup.getUserGroups);
 router.get('/list', controllerGroup.listUserGroups);
+// pokaži vse chate določene skupine
+router.get('/list/:id_group/chats', controllerGroup.listGroupChats);
 
 module.exports = router;
