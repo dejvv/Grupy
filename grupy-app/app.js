@@ -7,6 +7,8 @@ var expressSession = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var chatRouter = require('./routes/chat');
+var groupsRouter = require('./routes/groups');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var userProfileRouter = require('./routes/user-profile');
@@ -26,6 +28,8 @@ app.use(expressSession({secret: "secret_text", saveUninitialized: false, resave:
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/chat', chatRouter);
+app.use('/groups', groupsRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/user-profile', userProfileRouter);
