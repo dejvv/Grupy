@@ -218,3 +218,8 @@ module.exports.listGroupChats = async function(req, res, next) {
     
     res.render('groupChats', { title: 'List of chats for the group', chats: chats });
 }
+
+module.exports.showGroupProfile = function () {
+    // pridobi podatke o grupi
+    // render
+};
