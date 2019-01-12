@@ -17,6 +17,8 @@ module.exports.getUserWithId= function(id) {
                 content.ID_USER === 0 ? reject("error") : resolve(content);
             reject("error")
         });
+    });
+};
       
 var md5 = require('md5');
 
