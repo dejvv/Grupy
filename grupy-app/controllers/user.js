@@ -19,6 +19,30 @@ module.exports.getUserWithId= function(id) {
         });
     });
 };
+
+// vrne v katerih skupinah je uporabnik z idjem
+module.exports.getUserGroups= function(id) {
+    return new Promise( (resolve, reject )  => {
+        let forwardedJson = {};
+
+        request({
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            uri: "http://grupyservice.azurewebsites.net/GroupService.svc/ID_USER/" + id,
+            json: forwardedJson,
+            method: 'GET'
+        }, function (error, answer, content) {
+            if (answer.statusCode === 201 || answer.statusCode === 200) 
+                content.ID_USER === 0 ? reject("error") : resolve(content);
+            reject("error")
+        });
+    }).catch(function(error) {
+        console.log("[getUserGroups]", error);
+        reject("error");
+    });
+};
+
 var md5 = require('md5');
 
 // vrne podatke o uporabniku z določenim idjem ali error, če je kaj narobe
@@ -59,6 +83,7 @@ module.exports.login = function(req, res) {
                 res.redirect("/login");
             } else {
                 req.session.ID_USER = content.ID_USER;
+                // res.redirect("/user-profile/"+content.ID_USER);
                 res.redirect("/groups");
             }
         } else if (answer.statusCode === 400) {

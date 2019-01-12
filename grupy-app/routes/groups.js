@@ -8,14 +8,13 @@ router.get('/', controllerGroup.getGroups);
 router.get('/', controllerGroup.processGroups);
 // dodaj skupino
 router.post('/add', controllerGroup.addGroup);
-
-
-
-// -- testing --
-router.get('/list/', function(req, res, next) {
-    console.log(req.mydata);
-    let err = req.query.error || "hehe"; // $_GET["id"]
-    res.render('findGroups', { title: 'Find group ' + err });
-});
+// uporabnik se joina skupini
+router.get('/join/:id_group', controllerGroup.userJoinsGroup);
+router.get('/join/:id_group', controllerGroup.userIsAddedToGroup);
+// pokaži vse skupine v katere je uporabnik joinan
+router.get('/list', controllerGroup.getUserGroups);
+router.get('/list', controllerGroup.listUserGroups);
+// pokaži vse chate določene skupine
+router.get('/list/:id_group/chats', controllerGroup.listGroupChats);
 
 module.exports = router;

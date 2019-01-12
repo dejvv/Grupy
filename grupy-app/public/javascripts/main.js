@@ -127,10 +127,16 @@ window.onload = function () {
         }); 
     });
 
-    var burger = document.querySelector('.burger');
-    var menu = document.querySelector('#'+burger.dataset.target);
-    burger.addEventListener('click', function() {
-        burger.classList.toggle('is-active');
-        menu.classList.toggle('is-active');
+    $(document).on('click', '.notification > button.delete', function() {
+        $(this).parent().addClass('is-hidden');
+        return false;
     });
+
+    // var burger = document.querySelector('.burger');
+    // var menu = document.querySelector('#'+burger.dataset.target);
+    // burger.addEventListener('click', function() {
+    //     burger.classList.toggle('is-active');
+    //     menu.classList.toggle('is-active');
+    // });
 }
+

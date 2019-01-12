@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressSession({secret: "secret_text", saveUninitialized: false, resave: false}));
+app.use(expressSession({secret: "secret_text", saveUninitialized: false, resave: true, duration: 30 * 60 * 1000, activeDuration: 5 * 60 * 1000 }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
