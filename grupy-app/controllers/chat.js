@@ -59,6 +59,7 @@ module.exports.addChatToGroup = function(args) {
         }
 };
 
+
 // vrne vse chate za določeno skupino http://grupyservice.azurewebsites.net/ChatService.svc/ID_GROUP/{ID_GROUP}
 module.exports.getChatsForGroups = function(id_group) {
     console.log("[getChatsForGroups] id_group:", id_group);
@@ -90,3 +91,67 @@ module.exports.createChatFor = function(req, res, next) {
     res.render('chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER });
     
 };
+
+      
+      
+//metoda za dodajanje sporočila v chat, vrne id od sporočila če uspešno, drugače 0
+module.exports.addMessageToChat = function(message, chatId, userId) {
+    return new Promise ((resolve, reject) => {
+        let forwardedJson = {
+            project: 1,
+            contained_in_id_chat: chatId,
+            datetime: null,
+            send_by_id_user: userId,
+            text: message
+        };
+        request({
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            uri: 'http://grupyservice.azurewebsites.net/MessageService.svc/',
+            method: 'POST',
+            json: forwardedJson
+        }, function (error, answer, content) {
+            if (answer.statusCode === 201 || answer.statusCode === 200) {
+                resolve(content.ID_MESSAGE);
+            }
+            else
+                reject(-1);
+        });
+    }).catch(function(error) {
+        console.log(error);
+        reject(-1);
+    });
+}
+
+//vrne zadnjih quantity sporočil za chat z id-jem chatId
+module.exports.getNChatMessages = function(chatId, quantity) {
+    return new Promise ((resolve, reject) => {
+        let forwardedJson = {}
+        request({
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            uri: 'http://grupyservice.azurewebsites.net/MessageService.svc/ID_CHAT/'+chatId,
+            method: 'GET',
+            json: forwardedJson
+        }, function (error, answer, content) {
+            if (answer.statusCode === 201 || answer.statusCode === 200) {
+                if(quantity == 0) {
+                    resolve(content);
+                }
+                else {
+                    let n = Object.keys(content).length;
+                    resolve(content.slice(n-1-quantity,n-1));
+                }
+            }
+            else
+                reject(null);
+        });
+    }).catch(function(error) {
+        console.log(error);
+        reject(null);
+    });
+}
+};
+
