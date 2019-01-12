@@ -1,4 +1,5 @@
 let request = require('request');
+var md5 = require('md5');
 
 // vrne podatke o uporabniku z določenim idjem ali error, če je kaj narobe
 module.exports.getUserWithId= function(id) {
@@ -19,7 +20,6 @@ module.exports.getUserWithId= function(id) {
         });
     });
 };
-var md5 = require('md5');
 
 module.exports.login = function(req, res) {
     let forwardedJson = {};
