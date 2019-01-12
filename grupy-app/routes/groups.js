@@ -11,14 +11,8 @@ router.post('/add', controllerGroup.addGroup);
 // uporabnik se joina skupini
 router.get('/join/:id_group', controllerGroup.userJoinsGroup);
 router.get('/join/:id_group', controllerGroup.userIsAddedToGroup);
-
-
-
-// -- testing --
-router.get('/list/', function(req, res, next) {
-    console.log(req.mydata);
-    let err = req.query.error || "hehe"; // $_GET["id"]
-    res.render('findGroups', { title: 'Find group ' + err });
-});
+// pokaži vse skupine v katere je uporabnik joinan
+router.get('/list', controllerGroup.getUserGroups);
+router.get('/list', controllerGroup.listUserGroups);
 
 module.exports = router;

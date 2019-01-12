@@ -1,6 +1,6 @@
 let request = require('request');
 
-// doda skupino, ko je dodajanje skupine uspešno, še doda chat za to skupino
+// ustvari chat
 module.exports.addChat = function(req, res, next) {
     return new Promise( (resolve, reject )  => {
         
@@ -28,6 +28,7 @@ module.exports.addChat = function(req, res, next) {
     });
 };
 
+// doda chat k skupini (v bazi v vmesno tabelo med group in chat)
 module.exports.addChatToGroup = function(args) {
     console.log("[addChatToGroup] args:", args);
     if (!args)
@@ -56,4 +57,28 @@ module.exports.addChatToGroup = function(args) {
                 reject("error");
             });
         }
+};
+
+// vrne vse chate za določeno skupino http://grupyservice.azurewebsites.net/ChatService.svc/ID_GROUP/{ID_GROUP}
+module.exports.getChatsForGroups = function(id_group) {
+    console.log("[getChatsForGroups] id_group:", id_group);
+    return new Promise((resolve, reject) => {
+        let forwardedJson = {};
+        request({
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            uri: 'http://grupyservice.azurewebsites.net/ChatService.svc/ID_GROUP/' + id_group,
+            method: 'GET',
+            json: forwardedJson
+        }, function (error, answer, content) {
+            console.log("[getChatsForGroups] content:", content);
+            if (answer.statusCode === 201 || answer.statusCode === 200)
+                content.ID_USER === 0 ? reject("error") : resolve(content);
+            reject("error");
+        });
+    }).catch(function(error) {
+        console.log(error);
+        reject("error");
+    });       
 };

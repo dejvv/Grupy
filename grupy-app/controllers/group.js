@@ -20,7 +20,7 @@ module.exports.getGroups= function(req, res, next) {
             // izvedi naslednjo metodo
             return next();
         } else {
-            res.redirect('/groups/list/?error=' + answer.statusCode);
+            res.redirect('/groups/?error=' + answer.statusCode);
         }
     });
 };
@@ -107,7 +107,7 @@ module.exports.addGroup = async function(req, res, next) {
     // });
     
 };
-
+// preglej če se uporanbik lahko doda v skupino
 module.exports.userJoinsGroup = async function(req, res, next) {
     console.log("[userJoinsGroup] session:", req.session.ID_USER);
     if (!req.session.ID_USER)
@@ -139,6 +139,7 @@ module.exports.userJoinsGroup = async function(req, res, next) {
         next();
 }
 
+// dodaj uporabnika v skupino
 module.exports.userIsAddedToGroup = function(req, res, next) {
     // extract params
     let id_group = req.params.id_group;
@@ -171,3 +172,36 @@ module.exports.userIsAddedToGroup = function(req, res, next) {
     
 }
 
+// pridobi vse skupine v katere je uporabnik joinan in jih da naslednji routi
+module.exports.getUserGroups = function(req, res, next) {
+    console.log("[getUserGroups] session:", req.session.ID_USER);
+    if (!req.session.ID_USER)
+        return res.redirect("../login");
+
+    let id_user = req.session.ID_USER;
+
+    let forwardedJson = {};
+
+    request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        uri: 'http://grupyservice.azurewebsites.net/GroupService.svc/ID_USER/' + id_user,
+        method: 'GET',
+        json: forwardedJson
+    }, function (error, answer, content) {
+        //console.log("[getUserGroups] content:", content);
+        if (answer.statusCode === 201 || answer.statusCode === 200) {
+            req.mydata = content;
+            return next();
+        }
+        return res.redirect('/list/?error=something-wrong');
+    });    
+}
+
+// vrne vse skupine v katere je uporabnik joinan
+module.exports.listUserGroups = function(req, res, next) {
+    let user_groups = req.mydata;
+    //console.log("[list user groups]",user_groups);
+    res.render('userGroups', { title: 'List of groups you are joined in', groups: user_groups });
+}

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 #{title}
+    if groups
+        ul
+        each group in groups
+            - let id = group.ID_GROUP
+            li 
+                a(href= id) #{group.name}
