@@ -57,3 +57,65 @@ module.exports.addChatToGroup = function(args) {
             });
         }
 };
+
+//metoda za dodajanje sporočila v chat, vrne id od sporočila če uspešno, drugače 0
+module.exports.addMessageToChat = function(message, chatId, userId) {
+    return new Promise ((resolve, reject) => {
+        let forwardedJson = {
+            project: 1,
+            contained_in_id_chat: chatId,
+            datetime: null,
+            send_by_id_user: userId,
+            text: message
+        };
+        request({
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            uri: 'http://grupyservice.azurewebsites.net/MessageService.svc/',
+            method: 'POST',
+            json: forwardedJson
+        }, function (error, answer, content) {
+            if (answer.statusCode === 201 || answer.statusCode === 200) {
+                resolve(content.ID_MESSAGE);
+            }
+            else
+                reject(-1);
+        });
+    }).catch(function(error) {
+        console.log(error);
+        reject(-1);
+    });
+}
+
+//vrne zadnjih quantity sporočil za chat z id-jem chatId
+module.exports.getNChatMessages = function(chatId, quantity) {
+    return new Promise ((resolve, reject) => {
+        let forwardedJson = {}
+        request({
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            uri: 'http://grupyservice.azurewebsites.net/MessageService.svc/ID_CHAT/'+chatId,
+            method: 'GET',
+            json: forwardedJson
+        }, function (error, answer, content) {
+            if (answer.statusCode === 201 || answer.statusCode === 200) {
+                if(quantity == 0) {
+                    resolve(content);
+                }
+                else {
+                    let n = Object.keys(content).length;
+                    resolve(content.slice(n-1-quantity,n-1));
+                }
+            }
+            else
+                reject(null);
+        });
+    }).catch(function(error) {
+        console.log(error);
+        reject(null);
+    });
+}
+};
+

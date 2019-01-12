@@ -68,6 +68,8 @@ p.message {
 .message:nth-child(odd) {
     background-color: #81BEF7;
 
+  }
+
 #login-panel{
   padding-top:20px;
   padding-bottom:20px;
