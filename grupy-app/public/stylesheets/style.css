@@ -1,11 +1,12 @@
-div#change_username, section#input_zone {
-    border: 5px outset #8258FA;
+.notification > button.delete {
+    border: none;
+} 
+.is-hidden {
+    display: none;
 }
 
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #fafafa !important;
+div#change_username, section#input_zone {
+    border: 5px outset #8258FA;
 }
 
 div#change_username {
@@ -67,6 +68,7 @@ p.message {
 
 .message:nth-child(odd) {
     background-color: #81BEF7;
+}
 
 #login-panel{
   padding-top:20px;

@@ -55,7 +55,9 @@ module.exports.processGroups= async function(req, res, next) {
         group.hosted_by_user = await user.getUserWithId(group.hosted_by_user_id);
         console.log(group.ID_GROUP, group.name);
         })).then(() => {
-        res.render('findGroups', { title: 'List of groups', content: content });
+            console.log("[processGroups] user is signed in:", req.session.ID_USER ? req.session.ID_USER : "nope");
+            console.log("query:",req.query.joined);
+            res.render('findGroups', { title: 'List of groups', content: content, user: req.session.ID_USER, errors: req.query.joined });
         });
     
 };
@@ -105,3 +107,67 @@ module.exports.addGroup = async function(req, res, next) {
     // });
     
 };
+
+module.exports.userJoinsGroup = async function(req, res, next) {
+    console.log("[userJoinsGroup] session:", req.session.ID_USER);
+    if (!req.session.ID_USER)
+        return res.redirect("../../login");
+    
+    // extract params
+    let id_group = req.params.id_group;
+    // preveri če skupina sploh obstaja
+    // todo ...
+
+    // preveri če je user že v tej skupini
+    let groups = await user.getUserGroups(req.session.ID_USER);
+    //console.log("[userJoinsGroup] getUserGroups said:", groups);
+    let allright = true;
+    groups.forEach(group => {
+        //console.log("checking:", group.ID_GROUP, "target:", id_group);
+        if (group.ID_GROUP == id_group){
+            allright = false;
+            return;
+        }    
+            // return res.redirect('/groups?joined=failiure-match');
+            //console.log("[userJoinsGroup] groups match! fail");
+    });
+    
+    if (!allright)
+        return res.redirect('/groups?joined=match');
+    // dodaj userja v skupino
+    else
+        next();
+}
+
+module.exports.userIsAddedToGroup = function(req, res, next) {
+    // extract params
+    let id_group = req.params.id_group;
+    let id_user = req.session.ID_USER;
+
+    console.log("user", id_user, "group", id_group);
+    //return res.redirect('/groups?joined=success');
+
+    let forwardedJson = {
+        ID_GROUP: id_group,
+        ID_USER: id_user
+    };
+
+    request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        uri: 'http://grupyservice.azurewebsites.net/AMember.svc/',
+        method: 'POST',
+        json: forwardedJson
+    }, function (error, answer, content) {
+        // console.log("[addGroup]", content);
+        if (answer.statusCode === 201 || answer.statusCode === 200) 
+            if (content.status === 1)
+                return res.redirect('/groups?joined=success');
+            else 
+                return res.redirect('/groups?joined=failure');
+        return res.redirect('/groups?joined=failure');
+    });
+    
+}
+

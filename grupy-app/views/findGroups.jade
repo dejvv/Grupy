@@ -1,7 +1,20 @@
 extends layout
 
 block content
-  button(onclick=`addGroup()`).button.is-primary.open-modal#send-request Add group
+  if errors == "success"
+    .notification.is-success
+      button.delete
+      p.notification-message You successfuly joined group
+  else if errors
+    .notification.is-warning
+      button.delete
+      if errors == "match"
+        p.notification-message You have already joined that group
+      else 
+        p.notification-message Something went wrong adding you to a group
+
+  if user
+    button(onclick=`addGroup()`).button.is-primary.open-modal#send-request Add group
   section
     .container
       //- if content && content.length > 0
@@ -47,9 +60,7 @@ block content
                   .content.is-small
                     p #{group.description}
                 .card-footer
-                  a.card-footer-item(href="#") Join 
-
-          
+                  a.card-footer-item(href= user ? "../groups/join/" + group.ID_GROUP : "../login") Join       
 
   .modal#get-data-modal
     .modal-background

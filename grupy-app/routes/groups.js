@@ -8,6 +8,9 @@ router.get('/', controllerGroup.getGroups);
 router.get('/', controllerGroup.processGroups);
 // dodaj skupino
 router.post('/add', controllerGroup.addGroup);
+// uporabnik se joina skupini
+router.get('/join/:id_group', controllerGroup.userJoinsGroup);
+router.get('/join/:id_group', controllerGroup.userIsAddedToGroup);
 
 
 
