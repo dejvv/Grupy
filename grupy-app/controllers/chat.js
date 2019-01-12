@@ -87,6 +87,6 @@ module.exports.createChatFor = function(req, res, next) {
     // console.log("[createChatFor] user session", req.session.ID_USER);
     if(!req.session.ID_USER)
         return res.redirect('../login');
-    res.render('chat', { title: 'Chat', chat_name: 'Cool chat' });
+    res.render('chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER });
     
-}
+};
