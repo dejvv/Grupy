@@ -85,6 +85,7 @@ module.exports.getChatsForGroups = function(id_group) {
     });       
 };
 
+
 module.exports.createChatWithId = async function(req, res, next) {
     _id = req.params.id_chat;
     let previous_messages = await exports.getNChatMessages(_id,0);

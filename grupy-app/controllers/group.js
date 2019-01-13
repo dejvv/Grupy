@@ -215,7 +215,6 @@ module.exports.listGroupChats = async function(req, res, next) {
 
     let chats = await chat.getChatsForGroups(id_group);
     console.log(chats);
-    
     res.render('groupChats', { title: 'List of chats for the group', chats: chats, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
 }
 
@@ -248,5 +247,11 @@ module.exports.getUsersForGroup = function (id_group) {
         console.log(error);
         reject("error");
     });   
-    
+
+    res.render('groupChats', { title: 'List of chats for the group', chats: chats });
+}
+
+module.exports.showGroupProfile = function () {
+    // pridobi podatke o grupi
+    // render
 };
