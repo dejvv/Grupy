@@ -71,6 +71,15 @@ p.message {
 }
 
 #login-panel{
+    margin-top:75px;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:50px;
+    padding-right:50px;
+    text-align:center;
+}
+
+#login-panel2{
     margin-top:20px;
     padding-top:20px;
     padding-bottom:20px;
@@ -79,11 +88,19 @@ p.message {
     text-align:center;
 }
 
+#meni{
+    height: 40px;
+}
+
 #profile-panel{
-  padding-top:75px;
-  padding-bottom:75px;
+  padding-top:40px;
+  padding-bottom:40px;
   padding-left:60px;
   padding-right:60px;
+}
+
+.margin-top-50{
+  margin-top: 100px;
 }
 
 #logo{
@@ -112,4 +129,25 @@ p.message {
 
 .bigger-text{
   font-size: 1.5em;
+}
+
+.slightly-bigger-text{
+    font-size: 1.2em;
+  }
+
+#chat-window{
+    height:500px !important;
+    overflow-y: scroll;
+}
+
+.no-rem{
+    padding: "0rem 1.5rem" !important;
+}
+
+body{
+    background-color: #fafafa !important;
+}
+
+.bold{
+    font-weight: bold;
 }

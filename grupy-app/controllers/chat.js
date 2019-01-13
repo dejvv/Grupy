@@ -1,4 +1,5 @@
 let request = require('request');
+let ctrGroup = require("./group");
 
 // ustvari chat
 module.exports.addChat = function(req, res, next) {
@@ -84,15 +85,24 @@ module.exports.getChatsForGroups = function(id_group) {
     });       
 };
 
+
+module.exports.createChatWithId = async function(req, res, next) {
+    _id = req.params.id_chat;
+    let previous_messages = await exports.getNChatMessages(_id,0);
+    //rabimo še group id
+    //let group_info = await group.getGroupById(id_group);  - za sliko
+    //let users_for_group = await group.getUsersForGroup(id_group);  - za slike od memberjev
+    console.log(previous_messages);
+    res.render('group-chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER, user:req.session.ID_USER, messages: previous_messages, name: req.session.username });
+};
+
 module.exports.createChatFor = function(req, res, next) {
     // console.log("[createChatFor] user session", req.session.ID_USER);
     if(!req.session.ID_USER)
         return res.redirect('../login');
-    res.render('chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER });
+    res.render('chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
     
 };
-
-      
       
 //metoda za dodajanje sporočila v chat, vrne id od sporočila če uspešno, drugače 0
 module.exports.addMessageToChat = function(message, chatId, userId) {

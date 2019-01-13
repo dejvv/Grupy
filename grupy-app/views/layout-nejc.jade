@@ -1,6 +1,12 @@
-extends layout-no-bulma
-
-block content
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title=title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css')
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet', integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN', crossorigin='anonymous')
+  body
     nav.navbar
       .container
         .navbar-brand
@@ -38,36 +44,4 @@ block content
                 .navbar-dropdown
                   a.navbar-item(href="/login")
                     | Login  
-    .row.margin-top-50
-        div.col-sm-4
-        div.col-sm-4.bigger-text User's profile card
-    .row
-        div.col-sm-4
-        div.col-sm-4.panel.panel-default#profile-panel
-            div.col-sm-3
-                img.profile-user-picture(src="/images/profile.png")
-            div.col-sm-9
-                span.bigger-text=name+" "+surname
-                br
-                if(sex == "m")
-                    span.bigger-text="Male"
-                else
-                    span="Female"
-                br
-            div.col-sm-12
-                if(me == 1)
-                    form(action='/user-profile/update',method='post')
-                        br
-                        span About me:
-                        br
-                        textarea.form-control#about-me(name="description")=introduction
-                        p.tip Describe yourself, so people can get to know you better.
-                        br
-                        input.form-control(type="submit" value="Update info")
-                        if(error)
-                            p.error-message=error
-                else
-                    br
-                    span About the user:
-                    br
-                    span.form-control#profile-user-desc=introduction
+    block content

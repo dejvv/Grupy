@@ -1,0 +1,146 @@
+extends layout-nejc
+
+block content
+        //
+            // START NAV
+            // .hero
+            section.hero
+                // .hero-head
+                nav.hero-head
+                    .columns.is-mobile.is-marginless.heading.has-text-weight-bold
+                        .column.left
+                            a(href='landing_home.html')
+                                img(src='/images/logo.png', style='width: 80px; height: 50px;')
+                        .column.center.desktop
+                            // <p class="navbar-item has-text-black">GRUPY</p>
+                        .column-left
+                            .field
+                                .control
+                                    input.input(type='text', placeholder='search')
+                        .column-right
+                            // <p class="navbar-item desktop has-text-black desktop">CREATE ROOM</p>
+                            // <p class="navbar-item desktop has-text-black desktop">SIGN UP</p>
+                            // <p class="navbar-item desktop has-text-black desktop">LOG IN</p>
+                            link(href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css', rel='stylesheet')
+                            link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.5.0/css/all.css', integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU', crossorigin='anonymous')
+                            .dropdown
+                                .dropdown-trigger
+                                    button.button(aria-haspopup='true', aria-controls='dropdown-menu')
+                                        span Account
+                                        span.icon.is-small
+                                            // fontawesome required for the icon
+                                            i.fa.fa-angle-down(aria-hidden='true')
+                                #dropdown-menu.dropdown-menu(role='menu')
+                                    .dropdown-content
+                                        a.dropdown-item(href='user_profile.html')
+                                            | Profile
+                                        hr.dropdown-divider
+                                        a.dropdown-item(href='#')
+                                            | Groups
+                                        hr.dropdown-divider
+                                        a.dropdown-item(href='#')
+                                            label#log-id Log In
+                            script(type='text/javascript', src='/javascripts/bulma.js')
+            // END NAV
+        .container.no-rem
+            .section
+                .box
+                    p.title.is-5.no-padding.has-text-black Group chat
+                // Developers
+                .row.columns
+                    .column.is-one-third
+                        .card.large
+                            .card-image
+                                figure.image
+                                    img#user-profile-picture-id(src='/images/bled.jpg', alt='Image')
+                            .card-content
+                                .media
+                                    .media-content
+                                        p.title.is-4.no-padding Group Members
+                                        .container.is-fluid
+                                            .columns.is-multiline
+                                                .column.is-one-quarter
+                                                    figure.image.is-64x64
+                                                        img#group-member-0-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                    // <p id="group-member-0-profile-name-id">Nejc</p>
+                                                .column.is-one-quarter
+                                                    figure.image.is-64x64
+                                                        img#group-member-1-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                    // <p id="group-member-2-profile-name-id">Margaret</p>
+                                                    // <p id="group-member-3-profile-name-id">Nejc</p>
+                                                    // <p id="group-member-4-profile-name-id">Nejc</p>
+                                                    // <p id="group-member-5-profile-name-id">Nejc</p>
+                                                    // <div id = "user-description" class="content">
+                                                    // Lovely student of Computer Science. Currently employed part-time at Result d. o. o.
+                                                    // <div class="background-icon"><span class="icon-twitter"></span></div>
+                                                    // </div>
+                    .column.is-one-half
+                        .card.large
+                            .card-content
+                                p.title.is-6.padding
+                                    | Chat with your grupy
+                            .card.large#chat-window
+                                // comment loop
+                                each message in messages
+                                    hr.dropdown-divider
+                                    .container.is-fluid
+                                        hr.dropdown-divider
+                                        .columns.is-multiline
+                                            .column.is-one-fifth
+                                                figure.image.is-32x32
+                                                    img#chat-user-0-profile-pic.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                // <p id="group-member-0-profile-name-id">Nejc</p>
+                                                p#chat-user-0=message.msgFrom
+                                            .column.is-four-fifth.has-background-light
+                                                p#chat-user-0-msg=message.text
+                                // second type of message
+                                    hr.dropdown-divider
+                                    .container.is-fluid
+                                        hr.dropdown-divider
+                                        .columns.is-multiline
+                                            .column.is-one-quarter
+                                                figure.image.is-32x32
+                                                    img#chat-user-1-profile-pic.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                // <p id="group-member-0-profile-name-id">Nejc</p>
+                                                p#chat-user-1 Zan
+                                            .column.is-three-quarter.has-background-grey-lighter
+                                                p#chat-user-1-msg
+                                                    | We are looking for people (preferably students) who are cultured, and will not trash the apartment we will all be staying at!
+                            .card.large
+                                .container.is-fluid
+                                    hr.dropdown-divider
+                                    .columns.is-multiline
+                                        .column.is-one-fifth
+                                            p Go ahead and break the ice! No need to be shy!
+                                        .column.is-three-fifth
+                                            .field
+                                                .control
+                                                    textarea#your-message-id.textarea.is-grey-lighter(placeholder='type your message here')
+                                        .column.is-one-fifth
+                                            span#button-for-posting-msg.button.is-success Post message
+                            //
+                                .card-content
+                                    .content
+                                        link(href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css', rel='stylesheet')
+                                        link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.5.0/css/all.css', integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU', crossorigin='anonymous')
+                                        .dropdown.is-hoverable
+                                            .dropdown-trigger
+                                                button.button(aria-haspopup='true', aria-controls='dropdown-menu4')
+                                                    span The rules of this Group
+                                                    span.icon.is-small
+                                                        i.fas.fa-angle-down(aria-hidden='true')
+                                            #dropdown-menu4.dropdown-menu(role='menu')
+                                                .dropdown-content.has-background-danger
+                                                    .dropdown-item.has-text-white
+                                                        p#group-rule-0 Clean after yourself
+                                                    hr.dropdown-divider
+                                                    .dropdown-item.has-text-white
+                                                        p#group-rule-1 If you destroy something at the apartment, you deal with the costs
+                                                    hr.dropdown-divider
+                                                    .dropdown-item.has-text-white
+                                                        p#group-rule-2 We are not necessarily looking to hang out. We would only be living together. :)
+                                        script(type='text/javascript', src='/javascripts/bulma.js')
+                                    button.button(aria-haspopup='true', aria-controls='dropdown-menu4')
+                                        span You're part of the team!
+                                        span.icon.is-small
+        //footer.footer
