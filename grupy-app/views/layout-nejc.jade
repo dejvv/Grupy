@@ -3,9 +3,10 @@ html(lang='en')
   head
     meta(charset='UTF-8')
     title=title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css')
     link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet', integrity='sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN', crossorigin='anonymous')
+    link(rel='stylesheet', href='/stylesheets/style.css')
   body
     nav.navbar
       .container
@@ -22,6 +23,9 @@ html(lang='en')
         |                     
         #navbarMenu.navbar-menu
           .navbar-end
+            a.navbar-item(href="/")
+              | About
+            |   
             a.navbar-item(href="/groups")
               | Browse
             |                         

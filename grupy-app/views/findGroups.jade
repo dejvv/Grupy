@@ -14,7 +14,8 @@ block content
         p.notification-message Something went wrong adding you to a group
 
   if user
-    button(onclick=`addGroup()`).button.is-primary.open-modal#send-request Add group
+    .container(style="margin-bottom: 1rem")
+      button(onclick=`addGroup()`, style="width: 100%").button.is-primary.open-modal#send-request Add group
   section
     .container
       //- if content && content.length > 0

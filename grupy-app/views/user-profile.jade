@@ -47,12 +47,12 @@ block content
             div.col-sm-3
                 img.profile-user-picture(src="/images/profile.png")
             div.col-sm-9
-                span.bigger-text=name+" "+surname
+                span.bigger-text=_name+" "+surname
                 br
                 if(sex == "m")
                     span.bigger-text="Male"
                 else
-                    span="Female"
+                    span.bigger-text="Female"
                 br
             div.col-sm-12
                 if(me == 1)

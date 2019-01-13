@@ -59,34 +59,11 @@ block content
                                         p.title.is-4.no-padding Group Members
                                         .container.is-fluid
                                             .columns.is-multiline
-                                                .column.is-one-quarter
-                                                    figure.image.is-64x64
-                                                        img#group-member-0-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
-                                                    // <p id="group-member-0-profile-name-id">Nejc</p>
-                                                .column.is-one-quarter
-                                                    figure.image.is-64x64
-                                                        img#group-member-1-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
-                                                    // <p id="group-member-1-profile-name-id">Barbara</p>
-                                                .column.is-one-quarter
-                                                    figure.image.is-64x64
-                                                        img#group-member-2-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
-                                                    // <p id="group-member-2-profile-name-id">Margaret</p>
-                                                .column.is-one-quarter
-                                                    figure.image.is-64x64
-                                                        img#group-member-3-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
-                                                    // <p id="group-member-3-profile-name-id">Nejc</p>
-                                                .column.is-one-quarter
-                                                    figure.image.is-64x64
-                                                        img#group-member-4-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
-                                                    // <p id="group-member-4-profile-name-id">Nejc</p>
-                                                .column.is-one-quarter
-                                                    figure.image.is-64x64
-                                                        img#group-member-5-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
-                                                    // <p id="group-member-5-profile-name-id">Nejc</p>
-                                                    // <div id = "user-description" class="content">
-                                                    // Lovely student of Computer Science. Currently employed part-time at Result d. o. o.
-                                                    // <div class="background-icon"><span class="icon-twitter"></span></div>
-                                                    // </div>
+                                                each t in travelers
+                                                    .column.is-one-quarter
+                                                        figure.image.is-64x64
+                                                            a(href="/user-profile/"+t.ID_USER)
+                                                                img#group-member-0-profile-pic-id.is-rounded(src='/images/profile.png')
                     .column.is-one-half
                         .card.large
                             .card-content

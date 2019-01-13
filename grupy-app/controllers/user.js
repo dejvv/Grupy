@@ -80,13 +80,13 @@ module.exports.login = function(req, res) {
 module.exports.renderLoginPage = function(req, res) {
     let _error = req.session.error;
     req.session.error = null;
-    res.render('login', { title: 'Grupy - Login', error: _error, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
+    res.render('login', { title: 'Grupy - Login', error: _error, user_id: req.session.ID_USER, user:req.session.ID_USER});
 };
 
 module.exports.renderRegisterPage = function(req, res) {
     let _error = req.session.error;
     req.session.error = null;
-    res.render('register', { title: 'Grupy - Register', error: _error, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
+    res.render('register', { title: 'Grupy - Register', error: _error, user_id: req.session.ID_USER, user:req.session.ID_USER});
 };
 
 module.exports.register = function(req, res) {
@@ -159,26 +159,26 @@ module.exports.renderUserPage = function(req, res) {
                 if(_user == req.session.ID_USER) {
                     res.render('user-profile', { 
                         title: 'Grupy - My profile', 
-                        name: content.name, 
+                        _name: content.name, 
                         surname: content.surname,
                         introduction: content.introduction,
                         sex: content.sex,
                         me: 1,
                         error: _error, 
                         user_id: req.session.ID_USER, 
-                        user:req.session.ID_USER, 
+                        user:req.session.ID_USER,
                         name: req.session.username
                     });
                 } else {
                     res.render('user-profile', { 
                         title: 'Grupy - User profile', 
-                        name: content.name, 
+                        _name: content.name, 
                         surname: content.surname,
                         introduction: content.introduction,
                         sex: content.sex,
                         me: 0, 
                         user_id: req.session.ID_USER, 
-                        user:req.session.ID_USER, 
+                        user:req.session.ID_USER,
                         name: req.session.username
                     });
                 }

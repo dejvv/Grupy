@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('grupy-app:server');
 var http = require('http');
+var chat = require('../controllers/chat');
 
 /**
  * Get port from environment and store in Express.
@@ -48,7 +49,15 @@ io.on('connection', (socket) => {
 
   // listen for messages and then broadcast it to everybody (sockets)
   socket.on('new_message', (data) => {
-    io.sockets.emit('incomming_messages', {message: data.message, username: socket.username});
+    console.log("[sockets] new_message:", data.message, "chat_id:", data.chat_id, "user_id:", data.user_id, "username:", data.username);
+    io.sockets.emit('incomming_messages', {message: data.message, username: data.username});
+    try {
+      chat.addMessageToChat(data.message, data.chat_id, data.user_id).then(null, 
+        error => { console.log('caught', error); }
+      );
+    } catch(e) {
+      console.log("[sockets] there was error adding message to db", e);
+    }
   });
 
 });
