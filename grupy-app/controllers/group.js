@@ -223,8 +223,8 @@ module.exports.showGroupProfile = async function (req,res,next) {
     let id_group = req.params.id_group;
     let group_info = await exports.getGroupById(id_group);
     let users_for_group = await exports.getUsersForGroup(id_group);
-    console.log(group_info);
-    res.render('group-profile', { title: 'Groupy - Group profile ', infos: group_info, users: users_for_group, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
+    res.render('group-profile', { title: 'Groupy - Group profile ', infos: group_info, users: users_for_group, user_id: req.session.ID_USER, 
+                                    user:req.session.ID_USER, name: req.session.username, travelers:users_for_group });
 };
 
 module.exports.getUsersForGroup = function (id_group) {
@@ -240,6 +240,7 @@ module.exports.getUsersForGroup = function (id_group) {
             json: forwardedJson
         }, function (error, answer, content) {
             //console.log("[getChatsForGroups] content:", content);
+            console.log(content)
             if (answer.statusCode === 201 || answer.statusCode === 200)
                 content === null ? reject("error") : resolve(content);
             reject("error");
