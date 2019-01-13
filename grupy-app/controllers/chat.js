@@ -84,12 +84,11 @@ module.exports.getChatsForGroups = function(id_group) {
     });       
 };
 
-module.exports.createChatFor = function(req, res, next) {
-    // console.log("[createChatFor] user session", req.session.ID_USER);
-    if(!req.session.ID_USER)
-        return res.redirect('../login');
-    res.render('chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER });
-    
+module.exports.createChatWithId = async function(req, res, next) {
+    _id = req.params.id_chat;
+    let previous_messages = await exports.getNChatMessages(_id,0);
+    console.log(previous_messages);
+    res.render('group-chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER, messages: previous_messages});
 };
 
       

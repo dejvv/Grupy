@@ -113,3 +113,12 @@ p.message {
 .bigger-text{
   font-size: 1.5em;
 }
+
+#chat-window{
+    height:500px !important;
+    overflow-y: scroll;
+}
+
+.no-rem{
+    padding: "0rem 1.5rem" !important;
+}

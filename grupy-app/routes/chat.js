@@ -13,6 +13,6 @@ router.get('/', async function(req, res, next) {
     console.log("[getNChatMessages]", a);
     res.render('chat', { title: 'Chat' });
   });
-router.get('/:id_chat', controllerChat.createChatFor);
+router.get('/:id_chat', controllerChat.createChatWithId);
 
 module.exports = router;
