@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 #{title}
+    if chats
+        ul
+        each chat in chats
+            - let id = chat.ID_CHAT
+            li 
+                a(href='../../../chat/' + id) #{chat.chat_name}

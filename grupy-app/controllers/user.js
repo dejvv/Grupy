@@ -19,10 +19,9 @@ module.exports.getUserWithId= function(id) {
         });
     });
 };
-var md5 = require('md5');
 
-// vrne podatke o uporabniku z določenim idjem ali error, če je kaj narobe
-module.exports.getUserWithId= function(id) {
+// vrne v katerih skupinah je uporabnik z idjem
+module.exports.getUserGroups= function(id) {
     return new Promise( (resolve, reject )  => {
         let forwardedJson = {};
 
@@ -30,7 +29,7 @@ module.exports.getUserWithId= function(id) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            uri: "http://grupyservice.azurewebsites.net/UserService.svc/" + id,
+            uri: "http://grupyservice.azurewebsites.net/GroupService.svc/ID_USER/" + id,
             json: forwardedJson,
             method: 'GET'
         }, function (error, answer, content) {
@@ -38,8 +37,15 @@ module.exports.getUserWithId= function(id) {
                 content.ID_USER === 0 ? reject("error") : resolve(content);
             reject("error")
         });
+    }).catch(function(error) {
+        console.log("[getUserGroups]", error);
+        reject("error");
     });
 };
+
+
+      
+var md5 = require('md5');
 
 module.exports.login = function(req, res) {
     let forwardedJson = {};
@@ -59,6 +65,7 @@ module.exports.login = function(req, res) {
                 res.redirect("/login");
             } else {
                 req.session.ID_USER = content.ID_USER;
+                // res.redirect("/user-profile/"+content.ID_USER);
                 res.redirect("/groups");
             }
         } else if (answer.statusCode === 400) {
@@ -121,7 +128,7 @@ module.exports.register = function(req, res) {
                 res.redirect("/register");
             } else {
                 req.session.ID_USER = content.status;
-                res.redirect("/groups");
+                res.redirect("/user-profile/"+content.status);
             }
         } else if (answer.statusCode === 400) {
             res.redirect('/register?error=400');

@@ -2,8 +2,8 @@ extends layout-no-bulma
 
 block content
   form(action="/login/process-login" method="post")
-    div.col-sm-4
-    div.col-sm-3
+    //- div.col-sm-4
+    div.col-md-3.col-sm-12.col-md-offset-4
       div.panel.panel-default#login-panel
         img#logo(src="/images/logo.png")
         br
@@ -19,4 +19,4 @@ block content
       div.panel.panel-default#login-panel
         span Don't have an account?&nbsp 
           a(href="/register") Sign up
-    div.col-sm-5
+    //- div.col-sm-5
