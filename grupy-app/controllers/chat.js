@@ -86,6 +86,8 @@ module.exports.getChatsForGroups = function(id_group) {
 };
 
 module.exports.createChatWithId = async function(req, res, next) {
+    if(!req.session.ID_USER)
+        return res.redirect('../login');
     _id = req.params.id_chat;
     let previous_messages = await exports.getNChatMessages(_id,0);
     //rabimo še group id
@@ -125,11 +127,11 @@ module.exports.addMessageToChat = function(message, chatId, userId) {
                 resolve(content.ID_MESSAGE);
             }
             else
-                reject(-1);
+                reject("error");
         });
     }).catch(function(error) {
         console.log(error);
-        reject(-1);
+        //reject("error");
     });
 }
 
