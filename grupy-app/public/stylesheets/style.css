@@ -79,6 +79,15 @@ p.message {
     text-align:center;
 }
 
+#login-panel2{
+    margin-top:20px;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:50px;
+    padding-right:50px;
+    text-align:center;
+}
+
 #meni{
     height: 40px;
 }

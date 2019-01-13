@@ -6,5 +6,6 @@ var ctrUser = require("../controllers/user");
 
 router.get('/', ctrUser.renderLoginPage);
 router.post('/process-login', ctrUser.login);
+router.get('/logout',ctrUser.logout);
 
 module.exports = router;

@@ -92,14 +92,14 @@ module.exports.createChatWithId = async function(req, res, next) {
     //let group_info = await group.getGroupById(id_group);  - za sliko
     //let users_for_group = await group.getUsersForGroup(id_group);  - za slike od memberjev
     console.log(previous_messages);
-    res.render('group-chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER, messages: previous_messages});
+    res.render('group-chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER, user:req.session.ID_USER, messages: previous_messages, name: req.session.username });
 };
 
 module.exports.createChatFor = function(req, res, next) {
     // console.log("[createChatFor] user session", req.session.ID_USER);
     if(!req.session.ID_USER)
         return res.redirect('../login');
-    res.render('chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER });
+    res.render('chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
     
 };
       

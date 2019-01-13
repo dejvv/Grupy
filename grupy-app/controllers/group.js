@@ -57,7 +57,7 @@ module.exports.processGroups= async function(req, res, next) {
         })).then(() => {
             console.log("[processGroups] user is signed in:", req.session.ID_USER ? req.session.ID_USER : "nope");
             console.log("query:",req.query.joined);
-            res.render('findGroups', { title: 'List of groups', content: content, user: req.session.ID_USER, errors: req.query.joined });
+            res.render('findGroups', { title: 'List of groups', content: content, user_id: req.session.ID_USER, user:req.session.ID_USER, errors: req.query.joined, name: req.session.username });
         });
     
 };
@@ -203,7 +203,7 @@ module.exports.getUserGroups = function(req, res, next) {
 module.exports.listUserGroups = function(req, res, next) {
     let user_groups = req.mydata;
     //console.log("[list user groups]",user_groups);
-    res.render('userGroups', { title: 'List of groups you are joined in', groups: user_groups });
+    res.render('userGroups', { title: 'List of groups you are joined in', groups: user_groups, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
 }
 
 // vrne vse chata, ki pripadajo skupini
@@ -216,7 +216,7 @@ module.exports.listGroupChats = async function(req, res, next) {
     let chats = await chat.getChatsForGroups(id_group);
     console.log(chats);
     
-    res.render('groupChats', { title: 'List of chats for the group', chats: chats });
+    res.render('groupChats', { title: 'List of chats for the group', chats: chats, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
 }
 
 module.exports.showGroupProfile = async function (req,res,next) {
@@ -224,7 +224,7 @@ module.exports.showGroupProfile = async function (req,res,next) {
     let group_info = await exports.getGroupById(id_group);
     let users_for_group = await exports.getUsersForGroup(id_group);
     console.log(group_info);
-    res.render('group-profile', { title: 'Groupy - Group profile ', infos: group_info, users: users_for_group });
+    res.render('group-profile', { title: 'Groupy - Group profile ', infos: group_info, users: users_for_group, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
 };
 
 module.exports.getUsersForGroup = function (id_group) {

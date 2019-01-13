@@ -33,7 +33,7 @@ html
     nav.navbar
       .container
         .navbar-brand
-          a.navbar-item(href='../')
+          a.navbar-item(href='/groups')
             img(src='/images/logo.png', alt='Logo')
           |                         
           span.navbar-burger.burger(data-target='navbarMenu')
@@ -45,40 +45,26 @@ html
         |                     
         #navbarMenu.navbar-menu
           .navbar-end
-            a.navbar-item.is-active
-              | Home
-            |                             
-            a.navbar-item
-              | Examples
-            |                             
-            a.navbar-item
-              | Features
-            |                             
-            a.navbar-item
-              | Team
-            |                             
-            a.navbar-item
-              | Archives
-            |                             
-            a.navbar-item
-              | Help
-            |                             
+            a.navbar-item(href="/groups")
+              | Browse
+            |                       
             .navbar-item.has-dropdown.is-hoverable
-              a.navbar-link
-                | Account
-              |                                 
-              .navbar-dropdown
-                a.navbar-item
-                  | Dashboard
-                |                                     
-                a.navbar-item
-                  | Profile
-                |                                     
-                a.navbar-item
-                  | Settings
-                |                                     
-                hr.navbar-divider
-                |                                     
-                .navbar-item
-                  | Logout
+              if(user)
+                a.navbar-link=name
+              else
+                a.navbar-link Account
+              if(user)                                 
+                .navbar-dropdown
+                  a.navbar-item(href="/groups/list")
+                    | My groups                            
+                  a.navbar-item(href="/user-profile/"+id_user)
+                    | Profile                            
+                  hr.navbar-divider
+                  |                                     
+                  a.navbar-item(href="/login/logout")
+                    | Logout
+              else
+                .navbar-dropdown
+                  a.navbar-item(href="/login")
+                    | Login  
     block content

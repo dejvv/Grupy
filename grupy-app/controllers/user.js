@@ -58,14 +58,15 @@ module.exports.login = function(req, res) {
         uri: 'http://grupyservice.azurewebsites.net/UserService.svc/login/',
         json: forwardedJson,
         method: 'GET'
-    }, function (error, answer, content) {
+    }, async function (error, answer, content) {
         if (answer.statusCode === 201 || answer.statusCode === 200) {
             if(content.ID_USER == -1) {
                 req.session.error = "Username or password are incorrect.";
                 res.redirect("/login");
             } else {
                 req.session.ID_USER = content.ID_USER;
-                // res.redirect("/user-profile/"+content.ID_USER);
+                let userinfo = await exports.getUserWithId(content.ID_USER);
+                req.session.username = userinfo.name;
                 res.redirect("/groups");
             }
         } else if (answer.statusCode === 400) {
@@ -79,13 +80,13 @@ module.exports.login = function(req, res) {
 module.exports.renderLoginPage = function(req, res) {
     let _error = req.session.error;
     req.session.error = null;
-    res.render('login', { title: 'Grupy - Login', error: _error });
+    res.render('login', { title: 'Grupy - Login', error: _error, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
 };
 
 module.exports.renderRegisterPage = function(req, res) {
     let _error = req.session.error;
     req.session.error = null;
-    res.render('register', { title: 'Grupy - Register', error: _error });
+    res.render('register', { title: 'Grupy - Register', error: _error, user_id: req.session.ID_USER, user:req.session.ID_USER, name: req.session.username });
 };
 
 module.exports.register = function(req, res) {
@@ -124,7 +125,7 @@ module.exports.register = function(req, res) {
                 req.session.error = "Not all data you entered was correct, please try again.";
                 res.redirect("/register");
             } else if (content.status == -2){
-                req.session.error = "User with this email already exists. Please pick another email.";
+                req.session.error = "User with this username already exists. Please pick another one.";
                 res.redirect("/register");
             } else {
                 req.session.ID_USER = content.status;
@@ -163,7 +164,10 @@ module.exports.renderUserPage = function(req, res) {
                         introduction: content.introduction,
                         sex: content.sex,
                         me: 1,
-                        error: _error
+                        error: _error, 
+                        user_id: req.session.ID_USER, 
+                        user:req.session.ID_USER, 
+                        name: req.session.username
                     });
                 } else {
                     res.render('user-profile', { 
@@ -172,7 +176,10 @@ module.exports.renderUserPage = function(req, res) {
                         surname: content.surname,
                         introduction: content.introduction,
                         sex: content.sex,
-                        me: 0
+                        me: 0, 
+                        user_id: req.session.ID_USER, 
+                        user:req.session.ID_USER, 
+                        name: req.session.username
                     });
                 }
             }
@@ -240,4 +247,9 @@ module.exports.updateInfo = function(req, res) {
             res.redirect('/user-profile?error='+answer.statusCode);
         }
     });
+};
+
+module.exports.logout = function(req, res) {
+    req.session.destroy();
+    res.redirect('/groups');
 };
