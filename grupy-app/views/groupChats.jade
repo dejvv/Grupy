@@ -1,10 +1,17 @@
+
 extends layout
 
 block content
-    h1 #{title}
-    if chats
-        ul
-        each chat in chats
-            - let id = chat.ID_CHAT
-            li 
-                a(href='../../../chat/' + id) #{chat.chat_name}
+    section
+        .container
+        if chats
+            table.table.is-hoverable.is-striped.is-fullwidth
+              thead
+                tr
+                  th Name of chat
+              each chat in chats
+                - let id = chat.ID_CHAT
+                tr
+                  td 
+                    a(href='../../../chat/' + id) #{chat.chat_name}
+    
