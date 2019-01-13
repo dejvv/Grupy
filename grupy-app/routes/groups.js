@@ -17,6 +17,6 @@ router.get('/list', controllerGroup.listUserGroups);
 // pokaži vse chate določene skupine
 router.get('/list/:id_group/chats', controllerGroup.listGroupChats);
 // grup profil
-//router.get('/:id_group', controllerGroup.showGroupProfile);
+router.get('/:id_group', controllerGroup.showGroupProfile);
 
 module.exports = router;

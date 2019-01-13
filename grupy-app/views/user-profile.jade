@@ -1,33 +1,87 @@
-extends layout
+extends layout-no-bulma
 
 block content
-    div.col-sm-4
-    div.col-sm-4.panel.panel-default#profile-panel
-        div.col-sm-3
-            img.profile-user-picture(src="/images/profile.png")
-        div.col-sm-9
-            span.bigger-text=name+" "+surname
-            br
-            if(sex == "m")
-                span.bigger-text="Sex: Male"
-            else
-                span="Sex: Female"
-            br
-        div.col-sm-12
-            if(me == 1)
-                form(action='/user-profile/update',method='post')
-                    br
-                    span About me:
-                    br
-                    textarea.form-control#about-me(name="description")=introduction
-                    p.tip Describe yourself, so people can get to know you better.
-                    input.form-control(type="submit" value="Update info")
-                    if(error)
-                        p.error-message=error
-            else
+    nav.navbar
+      .container
+        .navbar-brand
+          a.navbar-item(href='../')
+            img(src='/images/logo.png', alt='Logo')
+          |                         
+          span.navbar-burger.burger(data-target='navbarMenu')
+            span
+            |                         
+            span
+            |                         
+            span
+        |                     
+        #navbarMenu.navbar-menu
+          .navbar-end
+            a.navbar-item.is-active
+              | Home
+            |                             
+            a.navbar-item
+              | Examples
+            |                             
+            a.navbar-item
+              | Features
+            |                             
+            a.navbar-item
+              | Team
+            |                             
+            a.navbar-item
+              | Archives
+            |                             
+            a.navbar-item
+              | Help
+            |                             
+            .navbar-item.has-dropdown.is-hoverable
+              a.navbar-link
+                | Account
+              |                                 
+              .navbar-dropdown
+                a.navbar-item
+                  | Dashboard
+                |                                     
+                a.navbar-item
+                  | Profile
+                |                                     
+                a.navbar-item
+                  | Settings
+                |                                     
+                hr.navbar-divider
+                |                                     
+                .navbar-item
+                  | Logout
+    .row.margin-top-50
+        div.col-sm-4
+        div.col-sm-4.bigger-text User's profile card
+    .row
+        div.col-sm-4
+        div.col-sm-4.panel.panel-default#profile-panel
+            div.col-sm-3
+                img.profile-user-picture(src="/images/profile.png")
+            div.col-sm-9
+                span.bigger-text=name+" "+surname
                 br
-                span About the user:
+                if(sex == "m")
+                    span.bigger-text="Male"
+                else
+                    span="Female"
                 br
-                span.form-control#profile-user-desc=introduction
-
-    div.col-sm-4
+            div.col-sm-12
+                if(me == 1)
+                    form(action='/user-profile/update',method='post')
+                        br
+                        span About me:
+                        br
+                        textarea.form-control#about-me(name="description")=introduction
+                        p.tip Describe yourself, so people can get to know you better.
+                        br
+                        input.form-control(type="submit" value="Update info")
+                        if(error)
+                            p.error-message=error
+                else
+                    br
+                    span About the user:
+                    br
+                    span.form-control#profile-user-desc=introduction

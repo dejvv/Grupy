@@ -1,0 +1,109 @@
+extends layout-nejc
+
+block content
+        //
+            // START NAV
+            // .hero
+            section.hero
+                // .hero-head
+                nav.hero-head
+                    .columns.is-mobile.is-marginless.heading.has-text-weight-bold
+                        .column.left
+                            a(href='landing_home.html')
+                                img(src='/images/logo.png', style='width: 80px; height: 50px;')
+                        .column.center.desktop
+                            // <p class="navbar-item has-text-black">GRUPY</p>
+                        .column-left
+                            .field
+                                .control
+                                    input.input(type='text', placeholder='search')
+                        .column-right
+                            // <p class="navbar-item desktop has-text-black desktop">CREATE ROOM</p>
+                            // <p class="navbar-item desktop has-text-black desktop">SIGN UP</p>
+                            // <p class="navbar-item desktop has-text-black desktop">LOG IN</p>
+                            link(href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css', rel='stylesheet')
+                            link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.5.0/css/all.css', integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU', crossorigin='anonymous')
+                            .dropdown
+                                .dropdown-trigger
+                                    button.button(aria-haspopup='true', aria-controls='dropdown-menu')
+                                        span Account
+                                        span.icon.is-small
+                                            // fontawesome required for the icon
+                                            i.fa.fa-angle-down(aria-hidden='true')
+                                #dropdown-menu.dropdown-menu(role='menu')
+                                    .dropdown-content
+                                        a.dropdown-item(href='user_profile.html')
+                                            | Profile
+                                        hr.dropdown-divider
+                                        a.dropdown-item(href='#')
+                                            | Groups
+                                        hr.dropdown-divider
+                                        a.dropdown-item(href='#')
+                                            label#log-id Log In
+                            script(type='text/javascript', src='/javascripts/bulma.js')
+            // END NAV
+        .container
+            .section
+                .box
+                    p.title.is-5.no-padding.has-text-black="Group "+infos.name+" profile"
+                // Developers
+                .row.columns
+                    .column.is-one-third
+                        .card.large
+                            .card-image
+                                figure.image
+                                    img#user-profile-picture-id(src=infos.group_photo, alt='Image')
+                            .card-content
+                                .media
+                                    .media-content
+                                        p.title.is-4.no-padding Group Members
+                                        .container.is-fluid
+                                            .columns.is-multiline
+                                                .column.is-one-quarter
+                                                    figure.image.is-64x64
+                                                        img#group-member-0-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                    // <p id="group-member-0-profile-name-id">Nejc</p>
+                                                .column.is-one-quarter
+                                                    figure.image.is-64x64
+                                                        img#group-member-1-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                    // <p id="group-member-1-profile-name-id">Barbara</p>
+                                                .column.is-one-quarter
+                                                    figure.image.is-64x64
+                                                        img#group-member-2-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                    // <p id="group-member-2-profile-name-id">Margaret</p>
+                                                .column.is-one-quarter
+                                                    figure.image.is-64x64
+                                                        img#group-member-3-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                    // <p id="group-member-3-profile-name-id">Nejc</p>
+                                                .column.is-one-quarter
+                                                    figure.image.is-64x64
+                                                        img#group-member-4-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                    // <p id="group-member-4-profile-name-id">Nejc</p>
+                                                .column.is-one-quarter
+                                                    figure.image.is-64x64
+                                                        img#group-member-5-profile-pic-id.is-rounded(src='https://bulma.io/images/placeholders/128x128.png')
+                                                    // <p id="group-member-5-profile-name-id">Nejc</p>
+                                                    // <div id = "user-description" class="content">
+                                                    // Lovely student of Computer Science. Currently employed part-time at Result d. o. o.
+                                                    // <div class="background-icon"><span class="icon-twitter"></span></div>
+                                                    // </div>
+                    .column.is-one-half
+                        .card.large
+                            .card-content
+                                span#group-description.slightly-bigger-text Group's own description
+                            #group-description-box.card-content
+                                span#group-description.bold= "Place we are going: "
+                                span=infos.place_to_visit
+                                br
+                                br
+                                span#group-description.bold="Max. number of people: "
+                                span=infos.number_of_people
+                                br
+                                br
+                                p#group-description=infos.description
+                                br
+                                span#travel-date-id.bold="Date: "
+                                span NI V BAZI!
+                            
+                // End Developers
+        //footer.footer

@@ -30,5 +30,55 @@ html
     script(src='/javascripts/chat.js')
 
   body
-    div
+    nav.navbar
+      .container
+        .navbar-brand
+          a.navbar-item(href='../')
+            img(src='/images/logo.png', alt='Logo')
+          |                         
+          span.navbar-burger.burger(data-target='navbarMenu')
+            span
+            |                         
+            span
+            |                         
+            span
+        |                     
+        #navbarMenu.navbar-menu
+          .navbar-end
+            a.navbar-item.is-active
+              | Home
+            |                             
+            a.navbar-item
+              | Examples
+            |                             
+            a.navbar-item
+              | Features
+            |                             
+            a.navbar-item
+              | Team
+            |                             
+            a.navbar-item
+              | Archives
+            |                             
+            a.navbar-item
+              | Help
+            |                             
+            .navbar-item.has-dropdown.is-hoverable
+              a.navbar-link
+                | Account
+              |                                 
+              .navbar-dropdown
+                a.navbar-item
+                  | Dashboard
+                |                                     
+                a.navbar-item
+                  | Profile
+                |                                     
+                a.navbar-item
+                  | Settings
+                |                                     
+                hr.navbar-divider
+                |                                     
+                .navbar-item
+                  | Logout
     block content

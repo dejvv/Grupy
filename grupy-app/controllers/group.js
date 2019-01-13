@@ -219,7 +219,34 @@ module.exports.listGroupChats = async function(req, res, next) {
     res.render('groupChats', { title: 'List of chats for the group', chats: chats });
 }
 
-module.exports.showGroupProfile = function () {
-    // pridobi podatke o grupi
-    // render
+module.exports.showGroupProfile = async function (req,res,next) {
+    let id_group = req.params.id_group;
+    let group_info = await exports.getGroupById(id_group);
+    let users_for_group = await exports.getUsersForGroup(id_group);
+    console.log(group_info);
+    res.render('group-profile', { title: 'Groupy - Group profile ', infos: group_info, users: users_for_group });
+};
+
+module.exports.getUsersForGroup = function (id_group) {
+    return new Promise((resolve, reject) => {
+        let forwardedJson = {};
+
+        request({
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            uri: 'http://grupyservice.azurewebsites.net/UserService.svc/ID_GROUP/' + id_group,
+            method: 'GET',
+            json: forwardedJson
+        }, function (error, answer, content) {
+            //console.log("[getChatsForGroups] content:", content);
+            if (answer.statusCode === 201 || answer.statusCode === 200)
+                content === null ? reject("error") : resolve(content);
+            reject("error");
+        });
+    }).catch(function(error) {
+        console.log(error);
+        reject("error");
+    });   
+    
 };
