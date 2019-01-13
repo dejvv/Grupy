@@ -85,16 +85,44 @@ module.exports.getChatsForGroups = function(id_group) {
     });       
 };
 
+module.exports.getGroupIdFromChatId = function (id_chat) {
+    return new Promise ((resolve, reject) => {
+        let forwardedJson = {}
+        request({
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            uri: 'http://grupyservice.azurewebsites.net/GroupService.svc/ID_CHAT/'+id_chat,
+            method: 'GET',
+            json: forwardedJson
+        }, function (error, answer, content) {
+            if (answer.statusCode === 201 || answer.statusCode === 200) {
+                if(1) {
+                    resolve(content[0].ID_GROUP);
+                }
+                else {
+                    reject(null);
+                }
+            }
+            else
+                reject(null);
+        });
+    }).catch(function(error) {
+        console.log(error);
+        reject(null);
+    });
+}
+
 module.exports.createChatWithId = async function(req, res, next) {
     if(!req.session.ID_USER)
         return res.redirect('../login');
     _id = req.params.id_chat;
     let previous_messages = await exports.getNChatMessages(_id,0);
-    //rabimo še group id
-    //let group_info = await group.getGroupById(id_group);  - za sliko
-    //let users_for_group = await group.getUsersForGroup(id_group);  - za slike od memberjev
-    console.log(previous_messages);
-    res.render('group-chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER, user:req.session.ID_USER, messages: previous_messages, name: req.session.username });
+    let id_group = await exports.getGroupIdFromChatId(_id);
+    let group_info = await ctrGroup.getGroupById(id_group);
+    let users_for_group = await ctrGroup.getUsersForGroup(id_group);
+    res.render('group-chat', { title: 'Chat', chat_name: 'Cool chat', chat_id: req.params.id_chat, user_id: req.session.ID_USER, 
+                                user:req.session.ID_USER, messages: previous_messages, name: req.session.username, info:group_info, travelers:users_for_group});
 };
 
 module.exports.createChatFor = function(req, res, next) {
